@@ -92,6 +92,7 @@ function MsgMarker(map,msg) {
     this.word = msg['word']
     this.time=msg['time']
     this.user = msg['username']
+    this.isMove=Boolean(msg['vx'] | msg['vy'])
     this.setMap(map)
 }
 
@@ -100,7 +101,10 @@ MsgMarker.prototype = new google.maps.OverlayView();
 MsgMarker.prototype.draw = function() {
     if (!this.div_) {
         this.div_ = document.createElement( "div" )
-        this.div_.classList.add('msg','move_msg')
+        this.div_.classList.add('msg')
+        if(this.isMove){
+            this.div_.classList.add('move_msg')
+        }
         d=new Date(Number(this.time))
         this.div_.innerHTML = '<div class="main">'+this.word+'</div><div class="post_user">@'+this.user+'</div><div class="time">'+d.getMonth()+'/'+d.getDate()+'/'+('00'+d.getHours()).slice(-2)+':'+('00'+d.getMinutes()).slice(-2)+'</div>'
         var panes = this.getPanes();
@@ -110,8 +114,8 @@ MsgMarker.prototype.draw = function() {
     // 緯度、軽度の情報を、Pixel（google.maps.Point）に変換
     var point = this.getProjection().fromLatLngToDivPixel( new google.maps.LatLng( this.lat_, this.lng_ ) )
 
-    this.div_.style.left = point.x-30 + 'px'
-    this.div_.style.top = point.y-60 + 'px'
+    this.div_.style.left = point.x-30 + 'px' //微調整（左上がpositionの指定位置なので、ちょっとづらしてそれっぽくする）
+    this.div_.style.top = point.y-30 + 'px'
 }
 
 MsgMarker.prototype.getPosition = function() {
