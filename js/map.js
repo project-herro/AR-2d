@@ -11,8 +11,7 @@ gmap = null
 function SetMap(geo) {
     scalenum = 12
     if (geo) {
-        MyLatLng = new google.maps.LatLng(36.055056, 138.094843);
-        //MyLatLng = new google.maps.LatLng(geo.coords.latitude, geo.coords.longitude);
+        MyLatLng = new google.maps.LatLng(geo.coords.latitude, geo.coords.longitude);
     } else {
         MyLatLng = new google.maps.LatLng(34.7024898, 135.4937619);//座標が取得できないときは、とりあえず大阪駅
     }
