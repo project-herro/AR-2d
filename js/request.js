@@ -56,7 +56,7 @@ function Login(username,password){
             contentType:'application/json',
         })
         .done( (data) => {
-            data=eval(data['res'])
+            data=eval(data)
             if(data.length){
                 global_username=data[0]['username']
                 user_manager.style.display='none'
@@ -84,7 +84,7 @@ function Check_user_doubling(username,password){
             contentType:'application/json',
         })
         .done( (data) => {
-            data=eval(data['res'])
+            data=eval(data)
             console.log(data)
             if(data.length){
                 window.alert('すでに登録されています')
@@ -113,7 +113,7 @@ function Resister(username,password){
         .done( (data) => {
             global_username=username
             user_manager.style.display='none'
-            //data=eval(data['res'])
+            //data=eval(data)
             //console.log(data)
         })
         .fail( (data) => {
