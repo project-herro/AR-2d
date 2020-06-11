@@ -1,6 +1,5 @@
 window.onload=()=>{
-    //navigator.geolocation.getCurrentPosition(SetMap,FaildGetPos)//httosじゃないと使えない
-    FaildGetPos(null)
+    navigator.geolocation.getCurrentPosition(SetMap,FaildGetPos)//httosじゃないと使えない
     GetAll()
 }
 
@@ -10,11 +9,11 @@ function FaildGetPos(err){
 
 gmap = null
 function SetMap(geo) {
-    scalenum = 8
+    scalenum = 12
     if (geo) {
         MyLatLng = new google.maps.LatLng(geo.coords.latitude, geo.coords.longitude);
     } else {
-        MyLatLng = new google.maps.LatLng(34.7024898, 135.4937619);
+        MyLatLng = new google.maps.LatLng(34.7024898, 135.4937619);//座標が取得できないときは、とりあえず大阪駅
     }
     Options = {
         zoom: scalenum,      //地図の縮尺値
@@ -101,7 +100,7 @@ MsgMarker.prototype = new google.maps.OverlayView();
 MsgMarker.prototype.draw = function() {
     if (!this.div_) {
         this.div_ = document.createElement( "div" )
-        this.div_.classList.add('msg')
+        this.div_.classList.add('msg','move_msg')
         d=new Date(Number(this.time))
         this.div_.innerHTML = '<div class="main">'+this.word+'</div><div class="post_user">@'+this.user+'</div><div class="time">'+d.getMonth()+'/'+d.getDate()+'/'+('00'+d.getHours()).slice(-2)+':'+('00'+d.getMinutes()).slice(-2)+'</div>'
         var panes = this.getPanes();
@@ -111,8 +110,8 @@ MsgMarker.prototype.draw = function() {
     // 緯度、軽度の情報を、Pixel（google.maps.Point）に変換
     var point = this.getProjection().fromLatLngToDivPixel( new google.maps.LatLng( this.lat_, this.lng_ ) )
 
-    this.div_.style.left = point.x + 'px'
-    this.div_.style.top = point.y + 'px'
+    this.div_.style.left = point.x-30 + 'px'
+    this.div_.style.top = point.y-60 + 'px'
 }
 
 MsgMarker.prototype.getPosition = function() {

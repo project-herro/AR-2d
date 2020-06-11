@@ -55,16 +55,21 @@ html,body{
     font-weight: bold;
     border-radius: 10px;
     padding: 10px;
+    transform-origin: center;
     /*transition-duration: 100ms;*/
+}
+.move_msg{
+    background-color: rgba(11,209,159,.6);
 }
 .time{
     font-size: 50%;
 }
 
+
 #center_pin{
     position: absolute;
-    top:52%;
-    left:52%;
+    top:calc(50% - 15px);
+    left:calc(50% - 15px);
     width:30px;
     height:30px;
     background-color: #FF9F1C;
